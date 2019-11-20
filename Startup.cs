@@ -24,11 +24,6 @@ namespace MS_TEST_EJ
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            //Dapper
-
-
-            //
-
             //Inyecciones
             services.AddTransient<IDatos, Datos>();
             services.AddTransient<INegocio,Negocio>();
@@ -40,14 +35,13 @@ namespace MS_TEST_EJ
             });
             //
 
-            //log
-            //loggerFactory.AddFile("c:/Logs/myapp-{Date}.txt");
+            //Cors
+            services.AddCors();
             //
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IConfiguration configuration)
         {
             if (env.IsDevelopment())
             {
@@ -66,9 +60,10 @@ namespace MS_TEST_EJ
             });
             //
 
+            loggerFactory.AddFile(configuration.GetSection("Logging"));
+
             //Cors
-
-
+            app.UseCors(x => x.AllowAnyMethod().AllowCredentials().AllowAnyOrigin().AllowAnyHeader());
             //
 
             app.UseHttpsRedirection();

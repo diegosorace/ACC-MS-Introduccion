@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Serilog;
 
 namespace MS_TEST_EJ
@@ -13,7 +14,6 @@ namespace MS_TEST_EJ
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-            //.UseSerilog()
             .UseStartup<Startup>();
     }
 }
